@@ -9,7 +9,10 @@ app.get('/', (req, res) => { res.redirect("/"); });
 const info = require("./deployed_info.js")
 
 const web3 = new (require("web3"));
-web3.setProvider(new web3.providers.HttpProvider("http://localhost:7545"));
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const INFURA_PROJECT_ID = "d11c17162d934093bf8bafa878e42df7";
+const mnemonic = "payment festival describe bird jaguar cram artwork flower video window undo join";
+web3.setProvider(new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`));
 
 // const conm = require('./vote_abi_bin.js');
 
@@ -34,19 +37,19 @@ class votejs {
         this.accounts = await web3.eth.getAccounts();
         this.OWNER_ADDR = this.accounts[0];
         this.MAX_REGIST = 9;
-        this.DEPOSIT_ETHER = 900;
-        this.OUT_OF_ETHER = 98;
+        this.DEPOSIT_ETHER = 900 / 100;
+        this.OUT_OF_ETHER = 98 / 100;
         this.registIndex = 1;
         this.Members = [];
         this.obj = await new web3.eth.Contract(info.Vote_abi,info.Vote_address);
         this.numVoters = 0;
 
         // adjust balance for TEST 
-        var balance1 = await web3.eth.getBalance(this.accounts[1]);
-        if(balance1 < 1000000000000000000) { // funds too low.
-            console.log("startVoteSystem: ERR. please restart 'Ganache' and reTry.");
-            return false;
-        }
+        // var balance1 = await web3.eth.getBalance(this.accounts[1]);
+        // if(balance1 < 1000000000000000000) { // funds too low.
+        //     console.log("startVoteSystem: ERR. please restart 'Ganache' and reTry.");
+        //     return false;
+        // }
         // var senderrflg = false;
         // for(var i = 0; i < this.accounts.length; i++) {
         //     var eth = web3.utils.toWei(this.OUT_OF_ETHER.toString(), 'ether');
