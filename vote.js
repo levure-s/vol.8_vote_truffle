@@ -172,7 +172,7 @@ class votejs {
             console.log("execRegist: already max registerd.");
             return;
         }
-        var newAddr = this.accounts[this.registIndex];
+        var newAddr = j.address
         this.registIndex++;
         var passhex = web3.utils.toHex(j.password);
         var eth = web3.utils.toWei(this.OUT_OF_ETHER.toString(), 'ether');

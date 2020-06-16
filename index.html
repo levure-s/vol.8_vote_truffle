@@ -1,6 +1,24 @@
 <html><body><script src="/socket.io/socket.io.js"></script>
+<!-- <script src="./deployed_info.js"></script> -->
 <script>
-    window.onload = function () {connectSocket();};
+    window.onload = function () {
+        // if(typeof Vote_abi === 'undefined') {
+        //     document.getElementById('phasemsg').innerHTML = "[deployed_info.js]ファイルが見つかりません。確認して下さい。";
+        //     return;
+        // }
+        if (typeof window.ethereum !== 'undefined') {
+            ethereum.enable().then((accounts) => {
+                ethereum.on('accountsChanged', (accounts) => {
+                    location.reload(true);
+                });
+                connectSocket();
+            }).catch((err) => {
+                document.getElementById('phasemsg').innerHTML = "MetaMaskと接続できませんでした";
+            });
+        } else {
+            document.getElementById('phasemsg').innerHTML = "MetaMaskが見つかりません";
+        }   
+    };
     var socket;
     var displayMode;
 
@@ -252,7 +270,8 @@
         var v = {
             name: document.getElementById("p1name").value,
             manifesto: document.getElementById("p1manifesto").value,
-            password: document.getElementById("p1password").value
+            password: document.getElementById("p1password").value,
+            address: web3.eth.accounts[0]
         };
         socket.emit('call_regist', JSON.stringify(v));
     }
