@@ -85,9 +85,9 @@ class votejs {
             console.log("connected " + socket.id);
 
             // on call_regist
-            socket.on('call_regist', (msg) => {
-                this.execRegist(socket, JSON.parse(msg));
-            });
+            // socket.on('call_regist', (msg) => {
+            //     this.execRegist(socket, JSON.parse(msg));
+            // });
 
             // on call_vote
             socket.on('call_vote', (msg) => {
@@ -164,30 +164,6 @@ class votejs {
             });
 
         });
-    }
-
-    // exec regist candidate
-    async execRegist(sock, j) {
-        if(this.registIndex > this.MAX_REGIST) {
-            console.log("execRegist: already max registerd.");
-            return;
-        }
-        var newAddr = j.address
-        this.registIndex++;
-        var passhex = web3.utils.toHex(j.password);
-        var eth = web3.utils.toWei(this.OUT_OF_ETHER.toString(), 'ether');
-        await this.obj.methods.deposit().send({from:newAddr, value:eth ,gas:'5000000'})
-            .catch((err) => {
-                console.log("execRegist:deposit err " + err);
-                return;
-            });
-        await this.obj.methods.registCandidate(j.name, j.manifesto, passhex).send({from:newAddr, gas:'5000000'})
-            .catch((err) => {
-                console.log("execRegist:regist err " + err);
-                return;
-            });
-        console.log("execRegist: OK " + newAddr);
-        sock.emit('notice_registerd', newAddr);
     }
 
     // notice reload error
