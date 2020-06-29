@@ -176,16 +176,29 @@ class votejs {
         this.registIndex++;
         var passhex = web3.utils.toHex(j.password);
         var eth = web3.utils.toWei(this.OUT_OF_ETHER.toString(), 'ether');
-        await this.obj.methods.deposit().send({from:newAddr, value:eth ,gas:'5000000'})
-            .catch((err) => {
-                console.log("execRegist:deposit err " + err);
+        await web3.eth.signTransaction({from:newAddr, value:eth ,gas:'5000000'}, newAddr,(err,res) => {
+            if(!err){
+                this.obj.methods.deposit().sendSignedTransaction(res)
+                    .catch((err) => {
+                        console.log("execRegist:deposit err " + err);
+                        return;
+                    });
+            }else{
+                console.log("signTransaction err " + err);
                 return;
-            });
-        await this.obj.methods.registCandidate(j.name, j.manifesto, passhex).send({from:newAddr, gas:'5000000'})
-            .catch((err) => {
-                console.log("execRegist:regist err " + err);
+            }
+        });
+        await web3.eth.signTransaction({from:newAddr, gas:'5000000'}, newAddr,(err,res) => {
+            if(!err){this.obj.methods.registCandidate(j.name, j.manifesto, passhex).sendSignedTransaction(res)
+                .catch((err) => {
+                    console.log("execRegist:regist err " + err);
+                    return;
+                });
+            }else{
+                console.log("signTransaction err " + err);
                 return;
-            });
+            }
+        });
         console.log("execRegist: OK " + newAddr);
         sock.emit('notice_registerd', newAddr);
     }
