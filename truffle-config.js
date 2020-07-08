@@ -23,6 +23,12 @@ module.exports = {
       provider: () => new HDWalletProvider(mnemonic, `https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`),
       network_id: "*",
       gas: 5500000,
+    },
+    private:{
+      host: "127.0.0.1",
+      port: 8545,
+      network_id: "*",
+      gas: 4000000,
     }
   },
   compilers: {
