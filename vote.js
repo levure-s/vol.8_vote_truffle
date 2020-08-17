@@ -173,23 +173,32 @@ class votejs {
             return;
         }
         var passhex = web3.utils.toHex(j.password);
-        var newAddr = await web3.eth.personal.newAccount(passhex)
-            .catch((err) => {
-                console.log("execRegist:newAccount err " + err);
-                return;
-            });
+        var newAccount = await web3.eth.accounts.create(web3.utils.randomHex(32));
+        var newAddr = newAccount.address;
         this.registIndex++;
         var eth = web3.utils.toWei(this.OUT_OF_ETHER.toString(), 'ether');
-        await this.obj.methods.deposit().send({from:newAddr, value:eth ,gas:'5000000'})
-            .catch((err) => {
-                console.log("execRegist:deposit err " + err);
-                return;
-            });
-        await this.obj.methods.registCandidate(j.name, j.manifesto, passhex).send({from:newAddr, gas:'5000000'})
-            .catch((err) => {
-                console.log("execRegist:regist err " + err);
-                return;
-            });
+        await this.obj.methods.deposit().signTransaction({from:newAddr, value:eth ,gas:'5000000'}, newAccount.privateKey ,(err,res) =>{
+            if(!err){
+                web3.eth.sendSignedTransaction(res,(err,res) =>{
+                    if(err){
+                        console.log("execRegist:deposit err " + err);
+                    }
+                });                    
+            }else{
+                console.log("execRegist:signTransaction err " + err);
+            }
+        });
+        await web3.eth.accounts.signTransaction({from:newAddr, gas:'5000000'}, newAccount.privateKey ,(err,res) =>{
+            if(!err){
+                this.obj.methods.registCandidate(j.name, j.manifesto, passhex).sendSignedTransaction(res,(err,res) =>{
+                    if(err){
+                        console.log("execRegist:regist err " + err);
+                    }
+                });                    
+            }else{
+                console.log("execRegist:signTransaction err " + err);
+            }
+        });
         console.log("execRegist: OK " + newAddr);
         sock.emit('notice_registerd', newAddr);
     }
