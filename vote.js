@@ -76,8 +76,8 @@ class votejs {
         // for Client
         io.sockets.on('connection', (socket) => {
             if(this.phase != 0) {
-                this.noticeReloadError(socket);
-                return;
+                // this.noticeReloadError(socket);
+                this.noticeReload(socket);
             }
             console.log("connected " + socket.id);
 
@@ -164,10 +164,14 @@ class votejs {
     }
 
     // notice reload error
-    noticeReloadError(sock) {
-        //console.log("connection error.");
-        var j = { phase:'9', cAddr:'', cBalance:'0' };
-        sock.emit('notice_info', JSON.stringify(j));
+    // noticeReloadError(sock) {
+    //     //console.log("connection error.");
+    //     var j = { phase:'9', cAddr:'', cBalance:'0' };
+    //     sock.emit('notice_info', JSON.stringify(j));
+    // }
+
+    noticeReload(sock) {
+        sock.emit('notice_change_phase', this.phase);
     }
 
     // exec vote
