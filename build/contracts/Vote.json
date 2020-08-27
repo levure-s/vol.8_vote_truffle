@@ -10167,12 +10167,12 @@
         }
       },
       "links": {},
-      "address": "0x2feB79d1534c67a0030c6105654786E4C9c44c6e",
-      "transactionHash": "0x683fc414d46e21dad10d7476adb635e69b655419926d1cef387748f7e0960da3"
+      "address": "0x0BA4b7984C8A72EB0146614667776726A9180378",
+      "transactionHash": "0xaa920d9c8ed3ca79e1a8d6ec445ea040df9558523b09fe493d830e37903fa63f"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2020-06-16T06:34:44.370Z",
+  "updatedAt": "2020-08-27T05:22:12.020Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {

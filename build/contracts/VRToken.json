@@ -1316,12 +1316,12 @@
         }
       },
       "links": {},
-      "address": "0x35245d336975221B8963Cf601f229fa99156bB0B",
-      "transactionHash": "0xa1421823cb5965c98d29de62cbbd9b6f1617be998b73198661d0317f3024b0fd"
+      "address": "0x53B787526076cB50B9050343292AA9b2c5B371AD",
+      "transactionHash": "0xdb0a2cbcb492e1e53f45dd0366ffae531cd14d61a618946168929131b195361e"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2020-06-16T06:34:44.357Z",
+  "updatedAt": "2020-08-27T05:22:12.012Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {
