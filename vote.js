@@ -90,14 +90,14 @@ class votejs {
             // });
 
             // on call_vote
-            socket.on('call_vote', (msg) => {
-                this.execVote(socket, JSON.parse(msg));
-            });
+            // socket.on('call_vote', (msg) => {
+            //     this.execVote(socket, JSON.parse(msg));
+            // });
 
             // on call_withdraw
-            socket.on('call_withdraw', (addr) => {
-                this.execWithDraw(socket, addr);
-            });
+            // socket.on('call_withdraw', (addr) => {
+            //     this.execWithDraw(socket, addr);
+            // });
 
             // on call_info
             socket.on('call_info', () => {
@@ -118,9 +118,9 @@ class votejs {
                 this.execGetTbalance(socket,addr);
             });
 
-            socket.on("sendToken", (msg) => {
-                this.sendToken(socket, JSON.parse(msg).from,JSON.parse(msg).to);
-            });
+            // socket.on("sendToken", (msg) => {
+            //     this.sendToken(socket, JSON.parse(msg).from,JSON.parse(msg).to);
+            // });
 
             // set pong
             setInterval(() => {
@@ -174,30 +174,30 @@ class votejs {
     }
 
     // exec vote
-    execVote(sock, j) {
-        // var passhex = web3.utils.toHex(j.password);
-        var res = this.obj.methods.vote(j.voteaddr).send({from:j.myaddr, gas:'5000000'})
-            .then((result) => {
-                console.log("execVote: OK " + j.myaddr + "->" + j.voteaddr);
-                sock.emit('notice_voted', j.voteaddr);
-            }).catch((err) => {
-                console.log("execVote: vote err " + err);
-                sock.emit('notice_voted', "null");
-            });
-    }
+    // execVote(sock, j) {
+    //     // var passhex = web3.utils.toHex(j.password);
+    //     var res = this.obj.methods.vote(j.voteaddr).send({from:j.myaddr, gas:'5000000'})
+    //         .then((result) => {
+    //             console.log("execVote: OK " + j.myaddr + "->" + j.voteaddr);
+    //             sock.emit('notice_voted', j.voteaddr);
+    //         }).catch((err) => {
+    //             console.log("execVote: vote err " + err);
+    //             sock.emit('notice_voted', "null");
+    //         });
+    // }
 
     // exec withdraw
-    execWithDraw(sock, addr) {
-        this.obj.methods.withdrawPoliticalFunds().send({from:addr, gas:'5000000'})
-            .then((result) => {
-                console.log("execWithDraw: OK " + addr);
-                sock.emit('notice_withdrawed', 'OK');
-                io.sockets.emit('notice_withdrawed', 'OTHER');
-            }).catch(() => {
-                console.log("execWithDraw: NG " + addr);
-                sock.emit('notice_withdrawed', 'NG');
-            });
-    }
+    // execWithDraw(sock, addr) {
+    //     this.obj.methods.withdrawPoliticalFunds().send({from:addr, gas:'5000000'})
+    //         .then((result) => {
+    //             console.log("execWithDraw: OK " + addr);
+    //             sock.emit('notice_withdrawed', 'OK');
+    //             io.sockets.emit('notice_withdrawed', 'OTHER');
+    //         }).catch(() => {
+    //             console.log("execWithDraw: NG " + addr);
+    //             sock.emit('notice_withdrawed', 'NG');
+    //         });
+    // }
 
     // exec get contract info
     async execGetContractInfo(sock) {
