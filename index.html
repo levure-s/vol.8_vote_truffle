@@ -62,6 +62,10 @@
             updateVotingRright(msg);
         });
 
+        socket.on('notice_elected', (msg) => {
+            showelected(msg);
+        });
+
         socket.on('notice_sendToken', (msg) => {
             showSendTokenNotice(msg);
         });
@@ -76,22 +80,25 @@
         });
 
         // disconnect
-        socket.on('disconnect', (msg) => {
-            showInfo({phase:'8',cAddr:'',cBalance:''});
-            changeDisplayMode(displayMode);
-        });
+        // socket.on('disconnect', (msg) => {
+        //     showInfo({phase:'8',cAddr:'',cBalance:''});
+        //     changeDisplayMode(displayMode);
+        // });
 
         // connect init
         socket.connect();
         socket.emit('call_info');
         socket.emit('call_votelist');
+        var Vote_address = '0x40fc3f15197754954411Ceb9DdC654fbB33de8E4';
+        var Vote_abi = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x06fdde03"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x095ea7b3"},{"constant":true,"inputs":[],"name":"balanceOfMe","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x0eb2b9c9"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x18160ddd"},{"constant":false,"inputs":[{"name":"sender","type":"address"},{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x23b872dd"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidates","outputs":[{"name":"name","type":"string"},{"name":"addr","type":"address"},{"name":"manifesto","type":"string"},{"name":"voteCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x3477ee2e"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x39509351"},{"constant":true,"inputs":[],"name":"elected","outputs":[{"name":"name","type":"string"},{"name":"addr","type":"address"},{"name":"manifesto","type":"string"},{"name":"voteCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x5f82128f"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x70a08231"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x8da5cb5b"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x95d89b41"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa457c2d7"},{"constant":false,"inputs":[{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa9059cbb"},{"constant":true,"inputs":[],"name":"phase","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xb1c9fe6e"},{"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xdd62ed3e"},{"inputs":[],"payable":true,"stateMutability":"payable","type":"constructor","signature":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event","signature":"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event","signature":"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"},{"constant":false,"inputs":[{"name":"_p","type":"uint8"}],"name":"changePhase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x0721c297"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function","signature":"0xd0e30db0"},{"constant":false,"inputs":[{"name":"_addr","type":"address"}],"name":"registMember","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xc71dbade"},{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_manifesto","type":"string"},{"name":"_passhex","type":"bytes32"}],"name":"registCandidate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x2c82d23a"},{"constant":false,"inputs":[{"name":"recipient","type":"address"}],"name":"sendToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xc575c238"},{"constant":true,"inputs":[],"name":"getCandidatesCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xbb9aa28f"},{"constant":false,"inputs":[{"name":"_addr","type":"address"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x6dd7d8ea"},{"constant":false,"inputs":[],"name":"countVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x1a6cd2fd"},{"constant":true,"inputs":[],"name":"getElectedName","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x3ab7d304"},{"constant":true,"inputs":[],"name":"checkPoliticalFundsBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x1633d3c8"},{"constant":false,"inputs":[],"name":"withdrawPoliticalFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xe99cfe0d"},{"constant":false,"inputs":[],"name":"charge","outputs":[],"payable":true,"stateMutability":"payable","type":"function","signature":"0x55161913"}];
+        window.Vote_contract = web3.eth.contract(Vote_abi).at(Vote_address)
     }
 
     // show after registerd
     function showRegisterdNotice(msg) {
         document.getElementById("p1result").innerHTML = "立候補しました！あなたのアドレスは「" + msg + "」です！";
-        document.getElementById("p2myaddress").value = msg;
-        document.getElementById("fromaddress").value = msg;
+        // document.getElementById("p2myaddress").value = msg;
+        // document.getElementById("fromaddress").value = msg;
         displayMode = 'mode2_candidacy_done';
         changeDisplayMode(displayMode);
         socket.emit('call_votelist');
@@ -104,9 +111,11 @@
             return;
         }
         document.getElementById("p2result").innerHTML = "投票完了！あなたは「" + msg + "」に投票しました。";
+        document.getElementById("vr").innerHTML = "しばらくお待ちください";
         displayMode = 'mode4_vote_done';
         changeDisplayMode(displayMode);
         socket.emit('call_votelist');
+        setTimeout(txdone,30000)
     }
 
     // show after withdraw
@@ -118,6 +127,8 @@
         } else {
             // msg == 'OTHER'
         }
+        displayMode = 'mode6_result_done';
+        changeDisplayMode(displayMode);
         socket.emit('call_info');
         socket.emit('call_votelist');
     }
@@ -151,6 +162,7 @@
         document.getElementById("sendtoken").disabled = true;
         document.getElementById("p3title").style.color = "gray";
         document.getElementById("p3button").disabled = true;
+        console.log(mode);
         switch(mode) {
             case 'mode0_init':
                 break;
@@ -175,6 +187,7 @@
             case 'mode5_result_now':
                 document.getElementById("p3title").style.color = "red";
                 document.getElementById("p3button").disabled = false;
+                callelected();
                 break;
             case 'mode6_result_done':
                 document.getElementById("p3title").style.color = "red";
@@ -211,6 +224,11 @@
                 break;
         }
         document.getElementById("phasemsg").innerHTML = pm;
+        document.getElementById("p2myaddress").value = web3.eth.accounts[0];
+        document.getElementById("fromaddress").value = web3.eth.accounts[0];
+        if(displayMode == 'mode5_result_now' && j.cBalance == 0){
+            displayMode = 'mode6_result_done';
+        }
     }
 
     function updateVotingRright(num){
@@ -219,9 +237,17 @@
             document.getElementById("toaddress").disabled = false;
             document.getElementById("sendtoken").disabled = false;
         }else{
-            document.getElementById("vr").innerHTML = "あなたは投票権を持っていません。";
-            document.getElementById("toaddress").disabled = true;
-            document.getElementById("sendtoken").disabled = true;
+            document.getElementById("vr").innerHTML = "あなたは投票権を持っていません。";           
+            displayMode = 'mode4_vote_done';
+            socket.emit('call_votelist');
+        }
+    }
+
+    function showelected(addr){
+        if(addr != web3.eth.accounts[0]){
+            document.getElementById("p3result").innerHTML = "※あなたは当選者ではありません。";
+            displayMode = 'mode6_result_done';
+            changeDisplayMode(displayMode);
         }
     }
 
@@ -257,6 +283,11 @@
             var cell6 = row.insertCell(-1);
             cell6.innerHTML = '<input type="button" value="この人に投票する" id="coladd" onclick="dispSetVoteAddress(\'' + j[i].addr + '\')";>';
         }
+        console.log(j[i].addr == web3.eth.accounts[0]);
+        if(displayMode == 'mode1_candidacy_now' && j[i].addr == web3.eth.accounts[0]){
+            displayMode = 'mode2_candidacy_done';
+            changeDisplayMode(displayMode);
+        }
     }
 
     // set vote address
@@ -267,9 +298,9 @@
 
     // call regist
     function callRegist() {
-        var Vote_address = '0xC7A85420344c8ee92f3E4497E5142f50CD545B47';
-        var Vote_abi = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x06fdde03"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x095ea7b3"},{"constant":true,"inputs":[],"name":"balanceOfMe","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x0eb2b9c9"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x18160ddd"},{"constant":false,"inputs":[{"name":"sender","type":"address"},{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x23b872dd"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidates","outputs":[{"name":"name","type":"string"},{"name":"addr","type":"address"},{"name":"manifesto","type":"string"},{"name":"voteCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x3477ee2e"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x39509351"},{"constant":true,"inputs":[],"name":"elected","outputs":[{"name":"name","type":"string"},{"name":"addr","type":"address"},{"name":"manifesto","type":"string"},{"name":"voteCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x5f82128f"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x70a08231"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x8da5cb5b"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x95d89b41"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa457c2d7"},{"constant":false,"inputs":[{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa9059cbb"},{"constant":true,"inputs":[],"name":"phase","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xb1c9fe6e"},{"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xdd62ed3e"},{"inputs":[],"payable":true,"stateMutability":"payable","type":"constructor","signature":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event","signature":"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event","signature":"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"},{"constant":false,"inputs":[{"name":"_p","type":"uint8"}],"name":"changePhase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x0721c297"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function","signature":"0xd0e30db0"},{"constant":false,"inputs":[{"name":"_addr","type":"address"}],"name":"registMember","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xc71dbade"},{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_manifesto","type":"string"},{"name":"_passhex","type":"bytes32"}],"name":"registCandidate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x2c82d23a"},{"constant":false,"inputs":[{"name":"recipient","type":"address"}],"name":"sendToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xc575c238"},{"constant":true,"inputs":[],"name":"getCandidatesCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xbb9aa28f"},{"constant":false,"inputs":[{"name":"_addr","type":"address"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x6dd7d8ea"},{"constant":false,"inputs":[],"name":"countVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x1a6cd2fd"},{"constant":true,"inputs":[],"name":"getElectedName","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x3ab7d304"},{"constant":true,"inputs":[],"name":"checkPoliticalFundsBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x1633d3c8"},{"constant":false,"inputs":[],"name":"withdrawPoliticalFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xe99cfe0d"},{"constant":false,"inputs":[],"name":"charge","outputs":[],"payable":true,"stateMutability":"payable","type":"function","signature":"0x55161913"}];
-        window.Vote_contract = web3.eth.contract(Vote_abi).at(Vote_address)
+        // var Vote_address = '0x474B3c2f9b2dB3aeE4A7582951Ca85408259cFe8';
+        // var Vote_abi = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x06fdde03"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x095ea7b3"},{"constant":true,"inputs":[],"name":"balanceOfMe","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x0eb2b9c9"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x18160ddd"},{"constant":false,"inputs":[{"name":"sender","type":"address"},{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x23b872dd"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidates","outputs":[{"name":"name","type":"string"},{"name":"addr","type":"address"},{"name":"manifesto","type":"string"},{"name":"voteCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x3477ee2e"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x39509351"},{"constant":true,"inputs":[],"name":"elected","outputs":[{"name":"name","type":"string"},{"name":"addr","type":"address"},{"name":"manifesto","type":"string"},{"name":"voteCount","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x5f82128f"},{"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x70a08231"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x8da5cb5b"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x95d89b41"},{"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa457c2d7"},{"constant":false,"inputs":[{"name":"recipient","type":"address"},{"name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xa9059cbb"},{"constant":true,"inputs":[],"name":"phase","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xb1c9fe6e"},{"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xdd62ed3e"},{"inputs":[],"payable":true,"stateMutability":"payable","type":"constructor","signature":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event","signature":"0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event","signature":"0x8c5be1e5ebec7d5bd14f71427d1e84f3dd0314c0f7b2291e5b200ac8c7c3b925"},{"constant":false,"inputs":[{"name":"_p","type":"uint8"}],"name":"changePhase","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x0721c297"},{"constant":false,"inputs":[],"name":"deposit","outputs":[],"payable":true,"stateMutability":"payable","type":"function","signature":"0xd0e30db0"},{"constant":false,"inputs":[{"name":"_addr","type":"address"}],"name":"registMember","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xc71dbade"},{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_manifesto","type":"string"},{"name":"_passhex","type":"bytes32"}],"name":"registCandidate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x2c82d23a"},{"constant":false,"inputs":[{"name":"recipient","type":"address"}],"name":"sendToken","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xc575c238"},{"constant":true,"inputs":[],"name":"getCandidatesCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0xbb9aa28f"},{"constant":false,"inputs":[{"name":"_addr","type":"address"}],"name":"vote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x6dd7d8ea"},{"constant":false,"inputs":[],"name":"countVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0x1a6cd2fd"},{"constant":true,"inputs":[],"name":"getElectedName","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x3ab7d304"},{"constant":true,"inputs":[],"name":"checkPoliticalFundsBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function","signature":"0x1633d3c8"},{"constant":false,"inputs":[],"name":"withdrawPoliticalFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function","signature":"0xe99cfe0d"},{"constant":false,"inputs":[],"name":"charge","outputs":[],"payable":true,"stateMutability":"payable","type":"function","signature":"0x55161913"}];
+        // window.Vote_contract = web3.eth.contract(Vote_abi).at(Vote_address)
         var name = document.getElementById("p1name").value;
         var manifesto = document.getElementById("p1manifesto").value;
         // var password = document.getElementById("p1password").value;
@@ -308,6 +339,7 @@
             if(!err){
                 console.log("execVote: OK " + myaddr + "->" + voteaddr);
                 showVotedNotice(voteaddr);
+                // wait(res);
             }else{
                 console.log("execVote: vote err " + err);
                 showVotedNotice("null");
@@ -340,6 +372,10 @@
         socket.emit('call_tbalance',addr);
     }
 
+    function callelected(){
+        socket.emit('call_elected');
+    }
+
     function sendToken(){
         // var v = {
         //     from:document.getElementById("fromaddress").value,
@@ -351,10 +387,11 @@
         window.Vote_contract.sendToken.sendTransaction(to,{from:from, gas: '5000000'}, (err, res) =>{
             if(!err){
                 console.log("sendToken: OK");
-                showSendTokenNotice(to)
+                showSendTokenNotice(to);
+                // wait(res);
             }else{
                 console.log("sendToken err:" + err);
-                showSendTokenNotice("NG")
+                showSendTokenNotice("NG");
             }
         });
     }
@@ -362,10 +399,33 @@
     function showSendTokenNotice(msg){
         if(msg != "NG"){
             document.getElementById("sendresult").innerHTML = "投票権を「" + msg + "」にを譲渡しました。";
+            document.getElementById("vr").innerHTML = "しばらくお待ちください";
+            displayMode = 'mode4_vote_done';
+            changeDisplayMode(displayMode);
+            socket.emit('call_votelist');
+            setTimeout(txdone,60000)
         }else{
             document.getElementById("sendresult").innerHTML = "譲渡に失敗しました。";
         }
     }
+    
+    function txdone(){
+        displayMode = 'mode3_vote_now';
+        changeDisplayMode(displayMode);
+        socket.emit('call_votelist');
+    }
+
+    // function wait(res){
+    //     web3.eth.getTransaction(res,(err,res)=>{
+    //         if(!err){
+    //             displayMode = "mode3_vote_now";
+    //             changeDisplayMode(displayMode);
+    //         }else {
+    //             console.log("mada");
+    //             setTimeout(wait, 1000);
+    //         }
+    //     });
+    // }
 
    </script>
 <main>
@@ -379,7 +439,7 @@
         お名前 <input type="text" id="p1name"/>
         マニフェスト（医療拡充、介護予算増加など） <input type="text" id="p1manifesto"/><br>
         <!-- new password <input type="text" id="p1password"/><br><br> -->
-        <input type="button" id="p1button" value="立候補ボタン(預託金98ETH)" onclick="callRegist();"/>
+        <input type="button" id="p1button" value="立候補ボタン(預託金0.98ETH)" onclick="callRegist();"/>
         　<font color="red"><span id="p1result"></span></font>
     </div>
     <br><hr>

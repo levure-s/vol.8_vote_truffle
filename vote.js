@@ -43,6 +43,7 @@ class votejs {
         this.Members = [];
         this.obj = await new web3.eth.Contract(info.Vote_abi,info.Vote_address);
         this.numVoters = 0;
+        this.phase = await this.obj.methods.phase().call();
 
         // adjust balance for TEST 
         // var balance1 = await web3.eth.getBalance(this.accounts[1]);
@@ -79,8 +80,8 @@ class votejs {
         // for Client
         io.sockets.on('connection', (socket) => {
             if(this.phase != 0) {
-                this.noticeReloadError(socket);
-                return;
+                // this.noticeReloadError(socket);
+                this.noticeReload(socket);
             }
             console.log("connected " + socket.id);
 
@@ -116,6 +117,10 @@ class votejs {
 
             socket.on('call_tbalance', (addr) => {
                 this.execGetTbalance(socket,addr);
+            });
+
+            socket.on('call_elected', () => {
+                this.execGetElected(socket);
             });
 
             // socket.on("sendToken", (msg) => {
@@ -167,11 +172,16 @@ class votejs {
     }
 
     // notice reload error
-    noticeReloadError(sock) {
-        //console.log("connection error.");
-        var j = { phase:'9', cAddr:'', cBalance:'0' };
-        sock.emit('notice_info', JSON.stringify(j));
+    // noticeReloadError(sock) {
+    //     //console.log("connection error.");
+    //     var j = { phase:'9', cAddr:'', cBalance:'0' };
+    //     sock.emit('notice_info', JSON.stringify(j));
+    // }
+
+    noticeReload(sock) {
+        sock.emit('notice_change_phase', this.phase);
     }
+    
 
     // exec vote
     // execVote(sock, j) {
@@ -201,7 +211,6 @@ class votejs {
 
     // exec get contract info
     async execGetContractInfo(sock) {
-        this.phase = await this.obj.methods.phase().call();
         var cAddr = this.obj.options.address;
         var cBalance = await this.obj.methods.checkPoliticalFundsBalance().call();
         var cBalanceEther = web3.utils.fromWei(cBalance, 'ether');
@@ -223,13 +232,13 @@ class votejs {
             var balance = await web3.eth.getBalance(obj.addr);
             var balanceEther = web3.utils.fromWei(balance, 'ether');
             j[i] = {
-                addr: obj.addr,
+                addr: obj.addr.toLowerCase(),
                 name: obj.name,
                 manifesto: obj.manifesto,
                 count: obj.voteCount,
                 balance: balanceEther
             };
-            some += parseInt(j[i].count,10)
+            some += parseInt(j[i].count,10);
         } 
         var turnout = some * 100  / this.numVoters
         io.sockets.emit('notice_votelist', JSON.stringify(j));
@@ -247,6 +256,7 @@ class votejs {
                 return;
             });
         var ret2 = await this.obj.methods.phase().call();
+        this.phase = ret2
         console.log("execChangePhase: OK " + ret1 + "->" + ret2);
         io.sockets.emit('notice_change_phase', ret2);
         sock.emit('notice_change_phase', ret2);
@@ -264,6 +274,11 @@ class votejs {
     async execGetTbalance(sock,addr){
         var tbalance = await this.obj.methods.balanceOf(addr).call();
         sock.emit('notice_tbalance', tbalance);
+    }
+
+    async execGetElected(sock){
+        var elected = await this.obj.methods.elected().call();
+        sock.emit('notice_elected', elected.addr.toLowerCase());
     }
 
     async charge(sock,num){

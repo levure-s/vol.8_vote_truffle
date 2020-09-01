@@ -316,7 +316,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 39,
-        "sourceUnit": 994,
+        "sourceUnit": 973,
         "src": "27:63:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -330,10 +330,10 @@
               "id": 3,
               "name": "ERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 993,
+              "referencedDeclaration": 972,
               "src": "116:5:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20_$993",
+                "typeIdentifier": "t_contract$_ERC20_$972",
                 "typeString": "contract ERC20"
               }
             },
@@ -343,8 +343,8 @@
           }
         ],
         "contractDependencies": [
-          993,
-          1062
+          972,
+          1041
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -352,8 +352,8 @@
         "id": 38,
         "linearizedBaseContracts": [
           38,
-          993,
-          1062
+          972,
+          1041
         ],
         "name": "VRToken",
         "nodeType": "ContractDefinition",
@@ -530,7 +530,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1077,
+                          "referencedDeclaration": 1056,
                           "src": "286:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -585,7 +585,7 @@
                       "name": "_mint",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 879,
+                      "referencedDeclaration": 858,
                       "src": "280:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -655,7 +655,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1077,
+                          "referencedDeclaration": 1056,
                           "src": "417:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -688,7 +688,7 @@
                       "name": "balanceOf",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 637,
+                      "referencedDeclaration": 616,
                       "src": "407:9:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_uint256_$",
@@ -802,7 +802,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 39,
-        "sourceUnit": 994,
+        "sourceUnit": 973,
         "src": "27:63:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -816,10 +816,10 @@
               "id": 3,
               "name": "ERC20",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 993,
+              "referencedDeclaration": 972,
               "src": "116:5:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20_$993",
+                "typeIdentifier": "t_contract$_ERC20_$972",
                 "typeString": "contract ERC20"
               }
             },
@@ -829,8 +829,8 @@
           }
         ],
         "contractDependencies": [
-          993,
-          1062
+          972,
+          1041
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -838,8 +838,8 @@
         "id": 38,
         "linearizedBaseContracts": [
           38,
-          993,
-          1062
+          972,
+          1041
         ],
         "name": "VRToken",
         "nodeType": "ContractDefinition",
@@ -1016,7 +1016,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1077,
+                          "referencedDeclaration": 1056,
                           "src": "286:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1071,7 +1071,7 @@
                       "name": "_mint",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 879,
+                      "referencedDeclaration": 858,
                       "src": "280:5:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -1141,7 +1141,7 @@
                           "name": "msg",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1077,
+                          "referencedDeclaration": 1056,
                           "src": "417:3:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_magic_message",
@@ -1174,7 +1174,7 @@
                       "name": "balanceOf",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 637,
+                      "referencedDeclaration": 616,
                       "src": "407:9:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_uint256_$",
@@ -1316,12 +1316,12 @@
         }
       },
       "links": {},
-      "address": "0x64a24f82C20C80dE45566102d0FB2F7f9F1560f4",
-      "transactionHash": "0x281494a6c081e7e8df2d992e487a7c1c9aeadbd36c69b353f3c50b468305b0d6"
+      "address": "0xF80e9aCD7BCB258Cc65Fe4a7283458c4a87dCcE0",
+      "transactionHash": "0xeb82406b3db43daf862c354e5f555c6afd2ab036ebe6d97a00fd05314e3159fe"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2020-08-27T07:16:42.345Z",
+  "updatedAt": "2020-09-01T06:35:38.413Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {

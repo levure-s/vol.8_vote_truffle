@@ -15,7 +15,7 @@ contract Vote is VRToken{
     Candidate[] public candidates;
     Candidate public elected;
     mapping(address=>bool) registerd;
-    mapping(address=>bool) voted;
+    // mapping(address=>bool) voted;
     mapping(address=>bytes32) passhash;
     mapping(address=>bool) members;
 
@@ -58,11 +58,11 @@ contract Vote is VRToken{
     function vote(address _addr) public {
         require(phase == Phase.Vote, "phase err.");
         require(balanceOfMe() != 0, "token err.");
-        require(voted[msg.sender] == false, "already voted.");
+        // require(voted[msg.sender] == false, "already voted.");
         for(uint i = 0; i < candidates.length; i++) {
             if(candidates[i].addr == _addr) {
                 candidates[i].voteCount ++;
-                voted[msg.sender] = true;
+                // voted[msg.sender] = true;
                 sendToken(owner);
                 return;
             }
