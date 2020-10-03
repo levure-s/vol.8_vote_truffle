@@ -123,6 +123,10 @@ class votejs {
                 this.execGetElected(socket);
             });
 
+            socket.on('call_deployed_info', () => {
+                this.execDeployedInfo(socket);
+            });
+
             // socket.on("sendToken", (msg) => {
             //     this.sendToken(socket, JSON.parse(msg).from,JSON.parse(msg).to);
             // });
@@ -182,6 +186,13 @@ class votejs {
         sock.emit('notice_change_phase', this.phase);
     }
     
+    execDeployedInfo(sock){
+        var j ={
+            Vote_abi:info.Vote_abi,
+            Vote_address:info.Vote_address
+        };
+        sock.emit('notice_deployed_info', JSON.stringify(j));
+    }
 
     // exec vote
     // execVote(sock, j) {

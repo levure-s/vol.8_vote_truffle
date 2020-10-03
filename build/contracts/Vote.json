@@ -9571,12 +9571,12 @@
         }
       },
       "links": {},
-      "address": "0x40fc3f15197754954411Ceb9DdC654fbB33de8E4",
-      "transactionHash": "0x4fdff6ef84ff6390b8ad08f16211f5f49fa44113a314868342f8b11c252f3c8d"
+      "address": "0x9d980AF4205f1Cb1a4735bf60D17FEfB7129b6E0",
+      "transactionHash": "0x1029cf34ae8bc552c5a1d5e6e309278ad0a5988392b88d6e5d059b426daf58c3"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2020-09-01T06:35:38.416Z",
+  "updatedAt": "2020-10-03T01:01:35.456Z",
   "devdoc": {
     "methods": {
       "allowance(address,address)": {
