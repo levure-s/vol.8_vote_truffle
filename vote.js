@@ -9,10 +9,7 @@ app.get('/', (req, res) => { res.redirect("/"); });
 const info = require("./deployed_info.js")
 
 const web3 = new (require("web3"));
-const HDWalletProvider = require('truffle-hdwallet-provider');
-const INFURA_PROJECT_ID = "d11c17162d934093bf8bafa878e42df7";
-const mnemonic = "payment festival describe bird jaguar cram artwork flower video window undo join";
-web3.setProvider(new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`));
+web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
 // const conm = require('./vote_abi_bin.js');
 
@@ -123,10 +120,6 @@ class votejs {
                 this.execGetElected(socket);
             });
 
-            socket.on('call_deployed_info', () => {
-                this.execDeployedInfo(socket);
-            });
-
             // socket.on("sendToken", (msg) => {
             //     this.sendToken(socket, JSON.parse(msg).from,JSON.parse(msg).to);
             // });
@@ -186,13 +179,6 @@ class votejs {
         sock.emit('notice_change_phase', this.phase);
     }
     
-    execDeployedInfo(sock){
-        var j ={
-            Vote_abi:info.Vote_abi,
-            Vote_address:info.Vote_address
-        };
-        sock.emit('notice_deployed_info', JSON.stringify(j));
-    }
 
     // exec vote
     // execVote(sock, j) {
